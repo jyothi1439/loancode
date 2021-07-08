@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LOAN PREDICTION</title>
+  {% load static %}
+  <head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+<meta name="generator" content="Jekyll v4.0.1">
+<link rel="canonical" href="https://getbootstrap.com/docs/4.5/examples/sign-in/">
+
+<!-- Bootstrap core CSS -->
+<link href="/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  
+  <style>
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif;}
+      body{
+            padding: 20px;
+            background: url("{% static 'images/Testing1.jpg' %}");
+           
+            height: 100%;
+            
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+  input[type=text]{
+    width: 80%;
+    border:2px solid #aaa;
+    border-radius: 2px;
+    margin: 8px 0;
+  }
+  
+  .signup-form{
+  width: 900px;
+  margin: 0 auto;
+  padding: 10px 0;
+  }
+  .signup-form h2{
+  color: #fff;
+  margin: 0 0 15px;
+  position: relative;
+  text-align: center;
+  }
+  .signup-form form{
+  color: #fff;
+  border-radius: 5px;
+  margin-bottom: 30px;
+  background: #50b0d9;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  opacity: 0.8px;
+  }
+  .signup-form .form-group{
+  margin-bottom: 20px;
+  }
+  .signup-form h2:before, .signup-form h2:after{
+  content: "";
+  height: 2px;
+  width: 30%;
+  background: #000;
+  font-size: 15px;
+  position: relative;
+  top: 50%;
+  z-index: 2;
+  }
+  .signup-form h2:before{
+  left: 0;
+  }
+  .signup-form h2:after{
+  right: 0;
+  }
+  .signup-form .hint-text{
+  color: #999;
+  margin-bottom: 130px;
+  text-align: center;
+  }
+  </style>
+  </head>
+   <body>
+    <!-- Navbar (sit on top) -->
+<div class="w3-top">
+  <div class="w3-bar" id="myNavbar">
+    <a class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right" href="javascript:void(0);" onclick="toggleFunction()" title="Toggle Navigation Menu">
+      <i class="fa fa-bars"></i>
+    </a>
+    <a href="{% url 'firstpage' %}" class="w3-bar-item w3-button"><i class="fa fa-home">
+      
+    </i> HOME</a>
+    <a href="#about" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user">
+      
+    </i> ABOUT</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-user">
+      
+    </i> TESTING</a>
+    <a href="{% url 'visualization' %}" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-th"></i> VISUALIZATION</a>
+    <a href="#contact" class="w3-bar-item w3-button w3-hide-small"><i class="fa fa-envelope"></i> CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red">
+      <i class="fa fa-search"></i>
+    </a>
+  </div>
+
+  <!-- Navbar on small screens -->
+  <div id="navDemo" class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium">
+    <a href="#about" class="w3-bar-item w3-button" onclick="toggleFunction()">ABOUT</a>
+    <a href="#" class="w3-bar-item w3-button" onclick="toggleFunction()">TESTING</a>
+    
+    <a href="#contact" class="w3-bar-item w3-button" onclick="toggleFunction()">CONTACT</a>
+    <a href="#" class="w3-bar-item w3-button">SEARCH</a>
+  </div>
+</div>
+ <br>
+ <br>
+   
+     
+      <div class="signup-form w3-opacity w3-hover-opacity-off">
+         <form name="loanform" method = "post" action="{% url 'prediction'%}" onsubmit="return validation()">
+          {% csrf_token %}
+
+
+          <div class="mb-3">
+            <label class="form-group"> Gender</label><br>
+            <select required  class="form-select" id="gender" name="Gender" aria-label="Default select example" style="width: 46em; height:2em" required>
+              <br>
+              <option value="Select">select</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </div>
+            
+
+           <div class="mb-3">
+            <label class="form-group"> Married</label><br>
+            <select required class="form-select" id="married" name="Married" aria-label="Default select example" style="width: 46em; height:2em" >
+              <br>
+               <option value="Select">select</option>
+               <option value="no">No</option>
+               <option value="yes">Yes</option>
+            </select>
+          </div>
+           
+        <div class="form-group">
+         <label>Dependents</label>
+         <p><input required type = "number" name = "Dependents" min="0" max="3"style="width: 46em"/></p>
+        </div>
+        <div class="mb-3">
+            <label class="form-group"> Education </label><br>
+            <select required  class="form-select" id="education" name="Education" aria-label="Default select example" style="width: 46em; height:2em" >
+              <br>
+               <option value="Select">select</option>
+               <option value="graduate">graduate</option>
+               <option value="ungraduate">ungraduate</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-group">Self_Employed </label><br>
+            <select required  class="form-select" id="Self_Employed" name="Self_Employed" aria-label="Default select example" style="width: 46em; height:2em" >
+              <br>
+               <option value="Select">select</option>
+               <option value="yes">Yes</option>
+               <option value="no">No</option>
+            </select>
+          </div>
+          <div class="form-group">
+         <label>ApplicantIncome</label>
+         <p><input required  type = "number" name = "ApplicantIncome" min="0" style="width: 46em"/></p>
+            </div>
+               <div class="form-group">
+            <label>CoapplicantIncome</label>
+         <p><input required  type = "number" name = "CoapplicantIncome" min="0" style="width: 46em"/></p>
+            </div>
+            <div class="form-group">
+            <label>LoanAmount</label>
+         <p><input required type = "number" name = "LoanAmount" min="0" style="width: 46em"/></p>
+            </div>
+            <div class="form-group">
+            <label>Loan_Amount_Term</label>
+         <p><input required type = "number" name = "Loan_Amount_Term" min="0" style="width: 46em"/></p>
+            </div>
+            <div class="form-group">
+            <label>Credit_History</label>
+         <p><input required type = "number" name = "Credit_History" min="0" style="width: 46em"/></p>
+            </div>
+            <div class="mb-3">
+            <label class="form-group">Property_Area </label><br>
+            <select required  class="form-select" id="property_area" name="Property_Area" aria-label="Default select example" style="width: 46em; height:2em" >
+              <br>
+               <option value="Select">select</option>
+               <option value="urban">urban</option>
+               <option value="semi-urban">semi-urban</option>
+              <option value="rural">rural</option>
+            </select>
+          </div>
+
+
+
+           
+            <div class="form-group">
+         <p><input type = "submit" value = "submit" /></p>
+            </div>
+    
+           
+</form>
+</div>
+
+
+<!-- Footer -->
+<footer class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off">
+  <a href="#home" class="w3-button w3-light-grey"><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a>
+  <div class="w3-xlarge w3-section">
+    <i class="fa fa-facebook-official w3-hover-opacity"></i>
+    <i class="fa fa-instagram w3-hover-opacity"></i>
+    <i class="fa fa-snapchat w3-hover-opacity"></i>
+    <i class="fa fa-pinterest-p w3-hover-opacity"></i>
+    <i class="fa fa-twitter w3-hover-opacity"></i>
+    <i class="fa fa-linkedin w3-hover-opacity"></i>
+  </div>
+  <p>Powered by Loan Prediction</p>
+</footer>
+ 
+<script>
+    function validation(){
+      var e=document.getElementById("gender");
+      var struser=e.options[e.selectedIndex].value;
+      var gen=e.options[e.selectedIndex].text;
+      var marr=document.getElementById("married");
+      var marr1=marr.options[marr.selectedIndex].text;
+      var dep=document.forms["loanform"]["Dependents"];
+      var edu=document.getElementById("education");
+      var edu1=edu.options[edu.selectedIndex].text;
+      var selfemp=document.getElementById("Self_Employed");
+      var selfemp1=selfemp.options[selfemp.selectedIndex].text;
+      var ai=document.forms["loanform"]["ApplicantIncome"];
+      var ci=document.forms["loanform"]["CoapplicantIncome"];
+      var la=document.forms["loanform"]["LoanAmount"];
+      var lat=document.forms["loanform"]["Loan_Amount_Term"];
+      var ch=document.forms["loanform"]["Credit_History"];
+      var pa=document.getElementById("property_area");
+      var pa1=pa.options[pa.selectedIndex].text;
+      if(gen=="select"){
+        window.alert("Please enter your gender");
+        gender.focus();
+        return false;
+      }
+      if(marr1=="select"){
+        window.alert("Please enter your Marriage details as yes or no");
+        marr.focus();
+        return false;
+      }
+      if(dep.value<0 ){
+        window.alert("Please enter your dependents between 0 to 3");
+        dep.focus();
+        return false;
+      }
+      
+      if(edu1 =="select"){
+        window.alert("Please enter your graduate details as graduate or ungraduate");
+        edu.focus();
+        return false;
+      }
+      if(selfemp1 == "select"){
+        window.alert("Please enter your Self_Employed details as yes or no");
+        selfemp.focus();
+        return false;
+      }
+      if(ai.value<0){
+        window.alert("Please enter your Income in non negitive numbers");
+        ai.focus();
+        return false;
+      }
+      if(ci.value<0){
+        window.alert("Please enter your CoapplicantIncome in non negitive numbers");
+        ci.focus();
+        return false;
+      }
+      if(la.value<0){
+        window.alert("Please enter your LoanAmount in non negitive numbers");
+        ai.focus();
+        return false;
+      }
+      if(lat.value<0){
+        window.alert("Please enter your Loan_Amount_Term in non negitive numbers");
+        lat.focus();
+        return false;
+      }
+      if(ch.value<0){
+        window.alert("Please enter your Credit_History in non negitive numbers");
+        ch.focus();
+        return false;
+      }
+      if(pa1 =="select"){
+        window.alert("Please enter your Property_Area as rural or urban or semi urban");
+        pa.focus();
+        return false;
+      }
+    }
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+
+// Change style of navbar on scroll
+window.onscroll = function() {myFunction()};
+function myFunction() {
+    var navbar = document.getElementById("myNavbar");
+    if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+        navbar.className = "w3-bar" + " w3-card" + " w3-animate-top" + " w3-amber";
+    } else {
+        navbar.className = navbar.className.replace(" w3-card w3-animate-top w3-amber", "");
+    }
+}
+
+// Used to toggle the menu on small screens when clicking on the menu button
+function toggleFunction() {
+    var x = document.getElementById("navDemo");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+</body>
+
+</html>
+   
